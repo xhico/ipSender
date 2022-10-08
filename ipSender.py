@@ -11,13 +11,9 @@ import datetime
 import logging
 import requests
 import yagmail
+import base64
 from picamera2 import Picamera2
-
-
-def get911(key):
-    with open('/home/pi/.911') as inFile:
-        data = json.load(inFile)
-    return data[key]
+from Misc import get911
 
 
 def main():
