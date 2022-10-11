@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # !/usr/bin/python3
 
-# python3 -m pip install requests yagmail picamera numpy lxml --no-cache-dir
+# python3 -m pip install requests yagmail picamera2 numpy lxml --no-cache-dir
 # sudo apt install libatlas-base-dev libxslt-dev -y
 
 import json
@@ -31,17 +31,21 @@ def main():
     # Get externalIp
     externalIp = requests.get('https://api.ipify.org').content.decode('utf8')
     logger.info(externalIp)
-
-    # Take pic
-    with Picamera2() as camera:
-        camera.start()
-        camera.capture_file(IMG_FILE)
-
+    
     # Send email
     now = datetime.datetime.now().strftime("%Y-%m-%d %H-%M-%S")
     subject = hostname + " | " + localIp + " | " + externalIp + " | " + now
     body = subject.replace(" | ", "\n")
-    yagmail.SMTP(EMAIL_USER, EMAIL_APPPW).send(EMAIL_RECEIVER, subject, body, IMG_FILE)
+
+    #  Take pic
+    if TAKE_PIC:
+        IMG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "IMG_FILE.jpg")
+        with Picamera2() as camera:
+            camera.start()
+            camera.capture_file(IMG_FILE)
+        yagmail.SMTP(EMAIL_USER, EMAIL_APPPW).send(EMAIL_RECEIVER, subject, body, IMG_FILE)
+    else:
+        yagmail.SMTP(EMAIL_USER, EMAIL_APPPW).send(EMAIL_RECEIVER, subject, body)
 
 
 if __name__ == '__main__':
@@ -55,7 +59,8 @@ if __name__ == '__main__':
     EMAIL_USER = get911('EMAIL_USER')
     EMAIL_APPPW = get911('EMAIL_APPPW')
     EMAIL_RECEIVER = get911('EMAIL_RECEIVER')
-    IMG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "IMG_FILE.jpg")
+    TAKE_PIC = True
+    # 
 
     try:
         main()
