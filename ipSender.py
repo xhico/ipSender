@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # !/usr/bin/python3
 
-# python3 -m pip install requests yagmail picamera --no-cache-dir
+# python3 -m pip install requests yagmail picamera numpy lxml --no-cache-dir
+# sudo apt install libatlas-base-dev libxslt-dev -y
 
 import json
 import os
