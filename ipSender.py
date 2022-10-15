@@ -60,7 +60,6 @@ if __name__ == '__main__':
     EMAIL_APPPW = get911('EMAIL_APPPW')
     EMAIL_RECEIVER = get911('EMAIL_RECEIVER')
     TAKE_PIC = True
-    # 
 
     try:
         main()
