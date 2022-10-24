@@ -10,7 +10,7 @@ import socket
 import traceback
 import datetime
 import logging
-import requests
+import urllib.request
 import yagmail
 import base64
 from picamera2 import Picamera2
@@ -28,13 +28,13 @@ def main():
     localIp = localIp.getsockname()[0]
     logger.info(localIp)
 
-    # Get externalIp
-    externalIp = requests.get('https://api.ipify.org').content.decode('utf8')
-    logger.info(externalIp)
+    # Get externalIP
+    externalIP = urllib.request.urlopen("https://v4.ident.me/").read().decode("utf8")
+    logger.info(externalIP)
     
     # Send email
     now = datetime.datetime.now().strftime("%Y-%m-%d %H-%M-%S")
-    subject = hostname + " | " + localIp + " | " + externalIp + " | " + now
+    subject = hostname + " | " + localIp + " | " + externalIP + " | " + now
     body = subject.replace(" | ", "\n")
 
     #  Take pic
