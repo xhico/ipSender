@@ -31,14 +31,14 @@ def main():
     # Get externalIP
     externalIP = urllib.request.urlopen("https://v4.ident.me/").read().decode("utf8")
     logger.info(externalIP)
-    
+
     # Send email
     now = datetime.datetime.now().strftime("%Y-%m-%d %H-%M-%S")
     subject = hostname + " | " + localIp + " | " + externalIP + " | " + now
     body = subject.replace(" | ", "\n")
 
     #  Take pic
-    if TAKE_PIC:
+    if hostname == "RPI4":
         IMG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "IMG_FILE.jpg")
         with Picamera2() as camera:
             camera.start()
@@ -59,7 +59,6 @@ if __name__ == '__main__':
     EMAIL_USER = get911('EMAIL_USER')
     EMAIL_APPPW = get911('EMAIL_APPPW')
     EMAIL_RECEIVER = get911('EMAIL_RECEIVER')
-    TAKE_PIC = True
 
     try:
         main()
