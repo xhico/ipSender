@@ -41,6 +41,7 @@ def main():
     if hostname == "RPI4":
         IMG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "IMG_FILE.jpg")
         with Picamera2() as camera:
+            camera.configure(camera.create_still_configuration())
             camera.start()
             camera.capture_file(IMG_FILE)
         yagmail.SMTP(EMAIL_USER, EMAIL_APPPW).send(EMAIL_RECEIVER, subject, body, IMG_FILE)
