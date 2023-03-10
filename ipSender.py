@@ -4,7 +4,6 @@
 # python3 -m pip install requests yagmail picamera2 numpy lxml --no-cache-dir
 # sudo apt install libatlas-base-dev libxslt-dev -y
 
-import json
 import os
 import socket
 import traceback
@@ -12,7 +11,6 @@ import datetime
 import logging
 import urllib.request
 import yagmail
-import base64
 from picamera2 import Picamera2
 from Misc import get911
 
