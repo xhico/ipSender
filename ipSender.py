@@ -35,7 +35,7 @@ def main():
     Returns:
         None.
     """
-    
+
     # Get hostname
     hostname = socket.gethostname()
     logger.info(hostname)
