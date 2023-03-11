@@ -16,6 +16,25 @@ from Misc import get911
 
 
 def main():
+    """
+    This script gets the hostname, local IP address, external IP address, and sends an email
+    with this information. If the hostname is "RPI4", it also takes a picture and attaches it to the email.
+
+    Dependencies:
+        - socket
+        - datetime
+        - os (if hostname == "RPI4")
+        - picamera (if hostname == "RPI4")
+        - yagmail
+
+    Usage:
+        - Modify the EMAIL_USER, EMAIL_APPPW, and EMAIL_RECEIVER variables with appropriate values.
+        - Run the script.
+
+    Returns:
+        None.
+    """
+    
     # Get hostname
     hostname = socket.gethostname()
     logger.info(hostname)
@@ -39,11 +58,16 @@ def main():
     if hostname == "RPI4":
         IMG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "IMG_FILE.jpg")
         with Picamera2() as camera:
+            # Configure camera
             camera.configure(camera.create_still_configuration())
+            # Start camera
             camera.start()
+            # Capture image and save to file
             camera.capture_file(IMG_FILE)
+        # Send email with image attachment
         yagmail.SMTP(EMAIL_USER, EMAIL_APPPW).send(EMAIL_RECEIVER, subject, body, IMG_FILE)
     else:
+        # Send email without image attachment
         yagmail.SMTP(EMAIL_USER, EMAIL_APPPW).send(EMAIL_RECEIVER, subject, body)
 
 
