@@ -22,6 +22,7 @@ def main():
 
     Dependencies:
         - socket
+        - urllib
         - datetime
         - os (if hostname == "RPI4")
         - picamera (if hostname == "RPI4")
