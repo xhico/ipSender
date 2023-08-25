@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 # !/usr/bin/python3
 
-# python3 -m pip install requests yagmail picamera2 numpy lxml --no-cache-dir
-# sudo apt install libatlas-base-dev libxslt-dev -y
 
 import os
 import socket
