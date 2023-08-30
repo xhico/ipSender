@@ -10,7 +10,7 @@ import logging
 import urllib.request
 import yagmail
 from picamera2 import Picamera2
-from Misc import get911
+from Misc import get911, sendErrorEmail
 
 
 def main():
@@ -86,5 +86,6 @@ if __name__ == '__main__':
         main()
     except Exception as ex:
         logger.error(traceback.format_exc())
+        sendErrorEmail(os.path.basename(__file__), str(traceback.format_exc()))
     finally:
         logger.info("End")
