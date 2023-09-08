@@ -8,9 +8,8 @@ import traceback
 import datetime
 import logging
 import urllib.request
-import yagmail
 from picamera2 import Picamera2
-from Misc import get911, sendErrorEmail
+from Misc import get911, sendEmail
 
 
 def main():
@@ -50,7 +49,7 @@ def main():
 
     # Send email
     now = datetime.datetime.now().strftime("%Y-%m-%d %H-%M-%S")
-    subject = hostname + " | " + localIp + " | " + externalIP + " | " + now
+    subject = localIp + " | " + externalIP + " | " + now
     body = subject.replace(" | ", "\n")
 
     #  Take pic
@@ -64,10 +63,10 @@ def main():
             # Capture image and save to file
             camera.capture_file(IMG_FILE)
         # Send email with image attachment
-        yagmail.SMTP(EMAIL_USER, EMAIL_APPPW).send(EMAIL_RECEIVER, subject, body, IMG_FILE)
+        sendEmail(subject, body, IMG_FILE)
     else:
         # Send email without image attachment
-        yagmail.SMTP(EMAIL_USER, EMAIL_APPPW).send(EMAIL_RECEIVER, subject, body)
+        sendEmail(subject, body)
 
 
 if __name__ == '__main__':
@@ -78,14 +77,10 @@ if __name__ == '__main__':
 
     logger.info("----------------------------------------------------")
 
-    EMAIL_USER = get911('EMAIL_USER')
-    EMAIL_APPPW = get911('EMAIL_APPPW')
-    EMAIL_RECEIVER = get911('EMAIL_RECEIVER')
-
     try:
         main()
     except Exception as ex:
         logger.error(traceback.format_exc())
-        sendErrorEmail(os.path.basename(__file__), str(traceback.format_exc()))
+        sendEmail(os.path.basename(__file__), str(traceback.format_exc()))
     finally:
         logger.info("End")
