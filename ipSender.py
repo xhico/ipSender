@@ -53,7 +53,7 @@ def main():
     body = subject.replace(" | ", "\n")
 
     #  Take pic
-    if hostname == "RPI4":
+    if hostname == "RPI3A":
         IMG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "IMG_FILE.jpg")
         with Picamera2() as camera:
             # Configure camera
