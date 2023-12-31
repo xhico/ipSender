@@ -1,0 +1,5 @@
+requests
+yagmail
+picamera2
+numpy
+lxml
