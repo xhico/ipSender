@@ -52,21 +52,19 @@ def main():
     subject = localIp + " | " + externalIP + " | " + now
     body = subject.replace(" | ", "\n")
 
-    #  Take pic
-    if hostname == "RPI4":
-        IMG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "IMG_FILE.jpg")
-        with Picamera2() as camera:
-            # Configure camera
-            camera.configure(camera.create_still_configuration())
-            # Start camera
-            camera.start()
-            # Capture image and save to file
-            camera.capture_file(IMG_FILE)
-        # Send email with image attachment
-        sendEmail(subject, body, IMG_FILE)
-    else:
-        # Send email without image attachment
-        sendEmail(subject, body)
+    # #  Take pic
+    # IMG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "IMG_FILE.jpg")
+    # with Picamera2() as camera:
+    #     # Configure camera
+    #     camera.configure(camera.create_still_configuration())
+    #     # Start camera
+    #     camera.start()
+    #     # Capture image and save to file
+    #     camera.capture_file(IMG_FILE)
+
+    # Send email without image attachment
+    sendEmail(subject, body)
+    # sendEmail(subject, body, IMG_FILE)
 
 
 if __name__ == '__main__':
