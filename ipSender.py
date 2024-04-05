@@ -2,14 +2,14 @@
 # !/usr/bin/python3
 
 
+import datetime
+import logging
 import os
 import socket
 import traceback
-import datetime
-import logging
 import urllib.request
-from picamera2 import Picamera2
-from Misc import get911, sendEmail
+
+from Misc import sendEmail
 
 
 def main():
