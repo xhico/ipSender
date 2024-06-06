@@ -2,6 +2,7 @@
 # !/usr/bin/python3
 
 
+import Misc
 import datetime
 import logging
 import os
@@ -9,25 +10,11 @@ import socket
 import traceback
 import urllib.request
 
-from Misc import sendEmail
-
 
 def main():
     """
     This script gets the hostname, local IP address, external IP address, and sends an email
-    with this information. If the hostname is "RPI4", it also takes a picture and attaches it to the email.
-
-    Dependencies:
-        - socket
-        - urllib
-        - datetime
-        - os (if hostname == "RPI4")
-        - picamera (if hostname == "RPI4")
-        - yagmail
-
-    Usage:
-        - Modify the EMAIL_USER, EMAIL_APPPW, and EMAIL_RECEIVER variables with appropriate values.
-        - Run the script.
+    with this information.
 
     Returns:
         None.
@@ -52,19 +39,8 @@ def main():
     subject = localIp + " | " + externalIP + " | " + now
     body = subject.replace(" | ", "\n")
 
-    # #  Take pic
-    # IMG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "IMG_FILE.jpg")
-    # with Picamera2() as camera:
-    #     # Configure camera
-    #     camera.configure(camera.create_still_configuration())
-    #     # Start camera
-    #     camera.start()
-    #     # Capture image and save to file
-    #     camera.capture_file(IMG_FILE)
-
-    # Send email without image attachment
-    sendEmail(subject, body)
-    # sendEmail(subject, body, IMG_FILE)
+    # Send email
+    Misc.sendEmail(subject, body)
 
 
 if __name__ == '__main__':
@@ -79,6 +55,6 @@ if __name__ == '__main__':
         main()
     except Exception as ex:
         logger.error(traceback.format_exc())
-        sendEmail(os.path.basename(__file__), str(traceback.format_exc()))
+        Misc.sendEmail(os.path.basename(__file__), str(traceback.format_exc()))
     finally:
         logger.info("End")

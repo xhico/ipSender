@@ -5,7 +5,7 @@ After=network.target
 [Service]
 User=pi
 WorkingDirectory=/home/pi/ipSender/
-ExecStart=/usr/bin/python3 /home/pi/ipSender/ipSender.py
+ExecStart=/home/pi/ipSender/venv/bin/python3 /home/pi/ipSender/ipSender.py
 Restart=on-failure
 
 [Install]
